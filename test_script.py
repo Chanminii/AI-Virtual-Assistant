@@ -12,15 +12,12 @@ def test_speech():
         print("Say something...")
         audio = recognizer.listen(source, timeout=5)
         try:
-            text = recognizer.recognize_google(audio)
+            text = recognizer.recognize_sphinx(audio)  # Use Sphinx instead of Google
             print(f"You said: {text}")
-            return text
         except sr.UnknownValueError:
             print("Could not understand audio.")
-            return None
-        except sr.RequestError:
-            print("Speech recognition service unavailable.")
-            return None
+        except sr.RequestError as e:
+            print(f"Speech recognition error: {e}")
 
 # Test text-to-speech
 def test_tts():
